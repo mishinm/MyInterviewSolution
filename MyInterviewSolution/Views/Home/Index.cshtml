@@ -1,0 +1,81 @@
+﻿@using  WebApplication1.Models;
+@using System.Collections.Generic;
+
+@model UserInfoViewModel
+
+@{
+    ViewData["Title"] = "User data";
+}
+
+<div class="text-center">
+    <br />
+    <p> ТЕСТОВОЕ ЗАДАНИЕ </p>
+    <br />
+    <br />
+    <form asp-action="Index" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="UserInfo.FirstName" class="control-label"></label>
+            <input asp-for="UserInfo.FirstName" class="form-control" />
+            <span asp-validation-for="UserInfo.FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="UserInfo.LastName" class="control-label"></label>
+            <input asp-for="UserInfo.LastName" class="form-control" />
+            <span asp-validation-for="UserInfo.LastName" class="text-danger"></span>
+        </div>
+        <br />
+        <input type="submit" value="Отправить" />
+    </form>
+    <br />
+
+
+
+    <div id="table-wrapper">
+        <div id="table-scroll">
+
+            <table>
+                @*<thead>
+                        <tr>
+                            <th>ID</th>
+                            <th><span class="text">FirstName</span></th>
+                            <th><span class="text">LastName</span></th>
+                        </tr>
+                    </thead>*@
+                <tbody>
+                    @{ if (Model?.UserInfos?.Count() > 0)
+                        {
+                            foreach (var item in Model.UserInfos)
+                            {
+                                <tr>
+                                    <td>@item.UserInfoId</td>
+                                    <td>@item.FirstName</td>
+                                    <td>@item.LastName</td>
+                                </tr>
+                            }
+
+                        }
+
+
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+    <br />
+
+    <form asp-action="Delete" method="get">
+        <input type="submit" value="Очистить список" />
+    </form>
+
+    @{ if (ViewData["JavaScript"] != null)
+        {
+            <script>
+                    @Html.Raw(ViewData["JavaScript"])
+            </script>
+        } }
+
+</div>
